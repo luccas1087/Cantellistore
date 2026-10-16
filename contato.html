@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato | Cantelli Store</title>
+  <meta name="description" content="Fale com a Cantelli Store: WhatsApp, e-mail e formulário de contato para pedir orçamentos.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Chakra+Petch:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+/* =========================================================
+   Cantelli Store — Folha de estilos
+   Tema geek/dark: roxo neon, ciano e rosa neon sobre fundo azul-noite
+   ========================================================= */
+
+/* ---------- Variáveis (identidade visual) ---------- */
+:root {
+  color-scheme: dark;
+  --primaria: #8b5cf6;          /* roxo neon */
+  --primaria-escura: #6d3fd6;
+  --primaria-clara: #a78bfa;    /* para textos sobre fundo escuro */
+  --destaque: #22d3ee;          /* ciano */
+  --magenta: #f472b6;           /* rosa neon (detalhes) */
+  --fundo: #0f1020;
+  --fundo-2: #171832;
+  --cartao: #1d1f3a;
+  --borda: #2c2e55;
+  --titulo: #f2f2ff;
+  --texto: #d9daf2;
+  --texto-suave: #a3a5c8;
+  --sombra: 0 6px 20px rgba(0, 0, 0, 0.4);
+  --sombra-forte: 0 14px 34px rgba(0, 0, 0, 0.55);
+  --raio: 18px;
+  --fonte-titulo: "Chakra Petch", "Segoe UI", sans-serif;
+  --fonte-texto: "Nunito", "Segoe UI", Arial, sans-serif;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  font-family: var(--fonte-texto);
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3 { font-family: var(--fonte-titulo); color: var(--titulo); line-height: 1.2; }
+
+.container { width: min(1180px, 92%); margin-inline: auto; }
+.secao { padding: 80px 0; }
+.secao-escura { background: var(--fundo-2); }
+.titulo-secao { text-align: center; margin-bottom: 44px; }
+.titulo-secao h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+.titulo-secao p { color: var(--texto-suave); max-width: 560px; margin: 10px auto 0; }
+.titulo-secao .detalhe {
+  display: block; width: 60px; height: 4px; background: var(--destaque);
+  border-radius: 4px; margin: 14px auto 0;
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 26px; border-radius: 999px; border: 2px solid transparent;
+  font-weight: 700; cursor: pointer; transition: transform .25s, box-shadow .25s, background .25s, color .25s;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+.btn-principal { background: var(--primaria); color: #fff; }
+.btn-principal:hover { background: var(--primaria-escura); }
+.btn-contorno { border-color: var(--primaria); color: var(--primaria-clara); background: transparent; }
+.btn-contorno:hover { background: var(--primaria); color: #fff; }
+.btn-whats { background: #25a35a; color: #fff; }
+.btn-whats:hover { background: #1d8a4a; }
+.btn-pequeno { padding: 9px 18px; font-size: .9rem; }
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15, 16, 32, 0.92); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--borda);
+  transition: box-shadow .3s;
+}
+.cabecalho.rolou { box-shadow: var(--sombra); }
+.cabecalho-linha { display: flex; align-items: center; gap: 22px; min-height: 76px; }
+.marca { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.marca img { width: 44px; height: 44px; }
+.marca-nome { font-family: var(--fonte-titulo); font-size: 1.45rem; font-weight: 700; color: var(--titulo); line-height: 1; }
+.marca-nome small { display: block; font-family: var(--fonte-texto); font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--primaria-clara); margin-top: 3px; }
+
+.menu { display: flex; gap: 6px; margin-left: auto; }
+.menu a { padding: 8px 14px; border-radius: 999px; font-weight: 600; transition: background .25s, color .25s; }
+.menu a:hover, .menu a.ativo { background: var(--fundo-2); color: var(--primaria-clara); }
+
+.pesquisa { position: relative; }
+.pesquisa input {
+  width: 200px; padding: 9px 16px 9px 38px; border-radius: 999px;
+  border: 2px solid var(--borda); background: var(--cartao); outline: none;
+  transition: border-color .25s, width .25s;
+}
+.pesquisa input:focus { border-color: var(--primaria); width: 240px; }
+.pesquisa .icone { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: .95rem; pointer-events: none; }
+
+.btn-whats-topo { padding: 9px 16px; font-size: .9rem; }
+
+.hamburguer {
+  display: none; margin-left: auto; width: 44px; height: 44px; border: none;
+  background: var(--fundo-2); border-radius: 12px; cursor: pointer; font-size: 1.4rem;
+}
+
+/* ---------- Banner ---------- */
+.banner {
+  background: radial-gradient(circle at 85% 20%, rgba(139, 92, 246, .28) 0, transparent 45%), radial-gradient(circle at 10% 90%, rgba(34, 211, 238, .14) 0, transparent 40%), linear-gradient(135deg, var(--fundo) 0%, var(--fundo-2) 100%);
+  padding: 70px 0 80px; overflow: hidden;
+}
+.banner-grade { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.selo-banner {
+  display: inline-block; background: var(--destaque); color: var(--fundo); font-weight: 800;
+  padding: 5px 16px; border-radius: 999px; font-size: .85rem; margin-bottom: 18px;
+}
+.banner h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 18px; }
+.banner h1 em { color: var(--primaria-clara); font-style: italic; }
+.banner p { font-size: 1.1rem; color: var(--texto-suave); max-width: 480px; margin-bottom: 28px; }
+.banner-botoes { display: flex; flex-wrap: wrap; gap: 14px; }
+.banner-imagem img { border-radius: 40px; box-shadow: var(--sombra-forte); animation: flutuar 6s ease-in-out infinite; }
+
+@keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ---------- Carrossel ---------- */
+.carrossel { position: relative; max-width: 960px; margin: 0 auto; }
+.carrossel-janela { overflow: hidden; border-radius: var(--raio); }
+.carrossel-trilho { display: flex; transition: transform .6s cubic-bezier(.4, .1, .2, 1); }
+.slide { min-width: 100%; padding: 6px; }
+.slide-cartao {
+  display: grid; grid-template-columns: 1fr 1fr; background: var(--cartao);
+  border-radius: var(--raio); overflow: hidden; box-shadow: var(--sombra);
+}
+.slide-cartao img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.slide-info { padding: 36px; display: flex; flex-direction: column; justify-content: center; gap: 10px; align-items: flex-start; }
+.slide-info h3 { font-size: 1.7rem; }
+.slide-info p { color: var(--texto-suave); }
+.slide-info .preco { font-size: 1.3rem; font-weight: 800; color: var(--destaque); }
+.categoria-etiqueta { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--magenta); }
+
+.selo {
+  display: inline-block; padding: 4px 14px; border-radius: 999px; font-size: .78rem; font-weight: 800;
+  background: var(--primaria); color: #fff;
+}
+.selo.novidade { background: var(--magenta); color: var(--fundo); }
+.selo.presente { background: var(--destaque); color: var(--fundo); }
+
+.carrossel-seta {
+  position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px;
+  border-radius: 50%; border: none; background: var(--cartao); color: var(--primaria-clara);
+  font-size: 1.5rem; font-weight: 800; cursor: pointer; box-shadow: var(--sombra); z-index: 2;
+  transition: background .25s, color .25s, transform .25s;
+}
+.carrossel-seta:hover { background: var(--primaria); color: #fff; transform: translateY(-50%) scale(1.08); }
+.carrossel-seta.anterior { left: -22px; }
+.carrossel-seta.proximo { right: -22px; }
+.indicadores { display: flex; justify-content: center; gap: 10px; margin-top: 22px; }
+.indicadores button {
+  width: 12px; height: 12px; border-radius: 50%; border: none; background: #3a3c66; cursor: pointer;
+  transition: width .3s, background .3s;
+}
+.indicadores button.ativo { width: 34px; border-radius: 999px; background: var(--primaria); }
+
+/* ---------- Categorias ---------- */
+.categorias-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px; }
+.categoria-cartao {
+  background: var(--cartao); border: 2px solid transparent; border-radius: var(--raio);
+  padding: 26px 14px; text-align: center; cursor: pointer; box-shadow: var(--sombra);
+  transition: transform .3s, border-color .3s, background .3s;
+}
+.categoria-cartao:hover { transform: translateY(-6px); border-color: var(--destaque); }
+.categoria-cartao.ativa { background: var(--primaria); border-color: var(--primaria); }
+.categoria-cartao.ativa h3, .categoria-cartao.ativa small { color: #fff; }
+.categoria-cartao .emoji { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+.categoria-cartao h3 { font-size: 1.05rem; font-family: var(--fonte-texto); font-weight: 800; }
+.categoria-cartao small { color: var(--texto-suave); }
+
+/* ---------- Vitrine ---------- */
+.vitrine-barra { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+.vitrine-barra p { color: var(--texto-suave); font-weight: 600; }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; }
+.filtros button {
+  padding: 8px 18px; border-radius: 999px; border: 2px solid var(--borda);
+  background: var(--cartao); cursor: pointer; font-weight: 700; transition: all .25s;
+}
+.filtros button:hover { border-color: var(--primaria); color: var(--primaria-clara); }
+.filtros button.ativo { background: var(--primaria); border-color: var(--primaria); color: #fff; }
+
+.vitrine-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
+.produto {
+  background: var(--cartao); border-radius: var(--raio); overflow: hidden; box-shadow: var(--sombra);
+  display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s;
+  animation: surgir .5s ease both;
+}
+.produto:hover { transform: translateY(-8px); box-shadow: var(--sombra-forte); }
+.produto-foto { position: relative; overflow: hidden; }
+.produto-foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .5s; }
+.produto:hover .produto-foto img { transform: scale(1.08); }
+.produto-foto .selo { position: absolute; top: 12px; left: 12px; }
+.produto-corpo { padding: 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.produto-corpo h3 { font-size: 1.15rem; }
+.produto-corpo p { font-size: .92rem; color: var(--texto-suave); flex: 1; }
+.preco { font-weight: 800; color: var(--destaque); }
+.produto-botoes { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.produto-botoes .btn { flex: 1; padding: 9px 10px; font-size: .85rem; }
+.vazio { grid-column: 1 / -1; text-align: center; padding: 50px 10px; color: var(--texto-suave); font-weight: 600; }
+
+@keyframes surgir { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Personalização ---------- */
+.personalizar-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.personalizar-form { background: var(--cartao); padding: 32px; border-radius: var(--raio); box-shadow: var(--sombra); display: grid; gap: 16px; }
+.campo { display: grid; gap: 6px; }
+.campo label { font-weight: 700; font-size: .92rem; }
+.campo input, .campo select, .campo textarea {
+  width: 100%; padding: 11px 14px; border-radius: 12px; border: 2px solid var(--borda);
+  background: var(--fundo); outline: none; transition: border-color .25s, box-shadow .25s;
+}
+.campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--primaria); box-shadow: 0 0 0 4px rgba(139, 92, 246, .25); }
+.campo textarea { resize: vertical; min-height: 130px; }
+.campo.erro input, .campo.erro textarea, .campo.erro select { border-color: #ff6b81; }
+.msg-erro { color: #ff6b81; font-size: .82rem; font-weight: 700; min-height: 1em; }
+.cores { display: flex; gap: 10px; }
+.cores button {
+  width: 36px; height: 36px; border-radius: 50%; border: 3px solid transparent;
+  cursor: pointer; box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); transition: transform .2s;
+}
+.cores button:hover { transform: scale(1.12); }
+.cores button.ativo { border-color: var(--titulo); }
+
+.previa { display: flex; justify-content: center; }
+.previa-caneca { position: relative; width: 280px; filter: drop-shadow(0 16px 18px rgba(74, 44, 29, .25)); }
+.previa-corpo {
+  height: 240px; border-radius: 26px; background: var(--primaria); position: relative;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 20px; transition: background .4s; overflow: hidden;
+}
+.previa-corpo::before { content: ""; position: absolute; left: 14px; top: 14px; bottom: 14px; width: 16px; border-radius: 10px; background: rgba(255, 255, 255, .18); }
+.previa-texto { color: #fff3dc; font-family: var(--fonte-titulo); font-size: 1.8rem; font-weight: 700; word-break: break-word; line-height: 1.2; }
+.previa-alca {
+  position: absolute; right: -50px; top: 50px; width: 70px; height: 110px;
+  border: 22px solid var(--primaria); border-left: none; border-radius: 0 60px 60px 0; transition: border-color .4s;
+}
+
+/* ---------- Sobre ---------- */
+.sobre-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+.sobre-imagens { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.sobre-imagens img { border-radius: var(--raio); box-shadow: var(--sombra); aspect-ratio: 1; object-fit: cover; }
+.sobre-imagens img:nth-child(2) { margin-top: 30px; }
+.sobre-texto h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 16px; }
+.sobre-texto p { color: var(--texto-suave); margin-bottom: 14px; }
+.diferenciais { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+.diferencial { background: var(--cartao); padding: 18px 12px; border-radius: 14px; text-align: center; box-shadow: var(--sombra); transition: transform .3s; }
+.diferencial:hover { transform: translateY(-4px); }
+.diferencial .emoji { font-size: 1.9rem; display: block; }
+.diferencial strong { display: block; font-size: .95rem; }
+.diferencial span:last-child { font-size: .8rem; color: var(--texto-suave); }
+
+/* ---------- Depoimentos ---------- */
+.depoimentos-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.depoimento { background: var(--cartao); padding: 28px; border-radius: var(--raio); box-shadow: var(--sombra); transition: transform .3s; }
+.depoimento:hover { transform: translateY(-6px); }
+.estrelas { color: #fbbf24; font-size: 1.15rem; letter-spacing: 2px; margin-bottom: 10px; }
+.depoimento p { font-style: italic; margin-bottom: 16px; }
+.depoimento strong { color: var(--titulo); }
+.aviso-ficticio { text-align: center; margin-top: 26px; font-size: .85rem; color: var(--texto-suave); }
+
+/* ---------- Contato (resumo na home) ---------- */
+.contato-resumo { text-align: center; background: linear-gradient(135deg, #241f4a, #17323f); border: 1px solid var(--borda); color: var(--texto); border-radius: 28px; padding: 56px 24px; }
+.contato-resumo h2 { color: #fff; margin-bottom: 10px; }
+.contato-resumo p { color: var(--texto-suave); max-width: 520px; margin: 0 auto 26px; }
+.contato-resumo .btn-contorno { border-color: #fff; color: #fff; }
+.contato-resumo .btn-contorno:hover { background: #fff; color: var(--fundo); }
+.redes { display: flex; gap: 12px; flex-wrap: wrap; }
+.contato-resumo .redes { justify-content: center; margin-top: 26px; }
+.redes a {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255, 255, 255, .14); font-weight: 800; transition: background .25s, transform .25s;
+}
+.redes a:hover { background: var(--destaque); color: var(--fundo); transform: translateY(-3px); }
+
+/* ---------- Página de contato ---------- */
+.contato-topo { background: linear-gradient(135deg, var(--fundo) 0%, var(--fundo-2) 100%); padding: 60px 0 30px; text-align: center; }
+.contato-topo h1 { font-size: clamp(2rem, 5vw, 3rem); }
+.contato-topo p { color: var(--texto-suave); max-width: 560px; margin: 12px auto 0; }
+.contato-grade { display: grid; grid-template-columns: 1.3fr 1fr; gap: 34px; align-items: start; }
+.contato-form { background: var(--cartao); padding: 34px; border-radius: var(--raio); box-shadow: var(--sombra); display: grid; gap: 16px; }
+.contato-info { display: grid; gap: 18px; }
+.info-cartao { background: var(--cartao); padding: 24px; border-radius: var(--raio); box-shadow: var(--sombra); }
+.info-cartao h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.info-cartao li { padding: 3px 0; color: var(--texto-suave); }
+.info-cartao .redes a { background: var(--fundo-2); color: var(--titulo); }
+.info-cartao .redes a:hover { background: var(--primaria); color: #fff; }
+.resultado { display: none; padding: 16px 18px; border-radius: 12px; background: rgba(34, 211, 238, .1); border: 2px solid var(--destaque); font-weight: 600; }
+.resultado.visivel { display: block; animation: surgir .4s ease; }
+.voltar-link { display: inline-block; margin-top: 18px; font-weight: 700; color: var(--primaria-clara); }
+.voltar-link:hover { text-decoration: underline; }
+
+/* ---------- Modal ---------- */
+.modal-fundo {
+  position: fixed; inset: 0; background: rgba(5, 5, 15, .78); display: none;
+  align-items: center; justify-content: center; padding: 20px; z-index: 200;
+}
+.modal-fundo.aberto { display: flex; animation: fade .25s ease; }
+.modal {
+  background: var(--cartao); border-radius: 22px; max-width: 760px; width: 100%; max-height: 92vh;
+  overflow: auto; position: relative; display: grid; grid-template-columns: 1fr 1fr; box-shadow: var(--sombra-forte);
+  animation: surgir .35s ease;
+}
+.modal img { width: 100%; height: 100%; object-fit: cover; min-height: 280px; }
+.modal-info { padding: 34px 28px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.modal-info h3 { font-size: 1.6rem; }
+.modal-info p { color: var(--texto-suave); }
+.modal-fechar {
+  position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%;
+  border: none; background: var(--fundo-2); font-size: 1.3rem; cursor: pointer; z-index: 2;
+}
+.modal-fechar:hover { background: var(--primaria); color: #fff; }
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Mensagem (toast) ---------- */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 30px); opacity: 0;
+  background: var(--primaria-escura); color: #fff; padding: 14px 26px; border-radius: 999px;
+  box-shadow: var(--sombra-forte); z-index: 300; pointer-events: none; max-width: 92%; text-align: center;
+  transition: opacity .35s, transform .35s;
+}
+.toast.visivel { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Rodapé ---------- */
+.rodape { background: #0a0b17; border-top: 1px solid var(--borda); color: var(--texto-suave); padding: 60px 0 24px; }
+.rodape-grade { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 34px; }
+.rodape .marca-nome { color: #fff; }
+.rodape p { margin: 14px 0; font-size: .92rem; }
+.rodape h4 { color: #fff; font-family: var(--fonte-titulo); margin-bottom: 12px; font-size: 1.1rem; }
+.rodape li { padding: 4px 0; }
+.rodape li a:hover { color: var(--destaque); }
+.rodape-base {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .15);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: .85rem;
+}
+.btn-topo {
+  background: var(--destaque); color: var(--fundo); border: none; padding: 9px 20px;
+  border-radius: 999px; font-weight: 800; cursor: pointer; transition: transform .25s;
+}
+.btn-topo:hover { transform: translateY(-3px); }
+
+/* ---------- Botão flutuante do WhatsApp ---------- */
+.whats-flutuante {
+  position: fixed; right: 20px; bottom: 20px; width: 58px; height: 58px; border-radius: 50%;
+  background: #25a35a; color: #fff; display: grid; place-items: center; font-size: 1.7rem;
+  box-shadow: var(--sombra-forte); z-index: 90; transition: transform .25s;
+}
+.whats-flutuante:hover { transform: scale(1.1); }
+
+/* ---------- Animação ao rolar ---------- */
+.revelar { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.revelar.visivel { opacity: 1; transform: none; }
+
+/* =========================================================
+   Responsivo
+   ========================================================= */
+@media (max-width: 1060px) {
+  .pesquisa input, .pesquisa input:focus { width: 150px; }
+  .btn-whats-topo span { display: none; }
+  .carrossel-seta.anterior { left: 6px; }
+  .carrossel-seta.proximo { right: 6px; }
+}
+
+@media (max-width: 900px) {
+  .hamburguer { display: block; }
+  .cabecalho-linha { flex-wrap: wrap; padding: 10px 0; }
+  .menu {
+    display: none; width: 100%; flex-direction: column; margin: 0; order: 5; padding-top: 6px;
+  }
+  .menu.aberto { display: flex; animation: surgir .3s ease; }
+  .menu a { padding: 12px 14px; }
+  .pesquisa { order: 4; flex: 1; min-width: 160px; }
+  .pesquisa input, .pesquisa input:focus { width: 100%; }
+  .btn-whats-topo { order: 3; }
+  .hamburguer { order: 2; }
+
+  .banner-grade, .sobre-grade, .personalizar-grade, .contato-grade { grid-template-columns: 1fr; }
+  .banner { padding: 40px 0 56px; }
+  .banner-imagem { order: -1; max-width: 420px; margin: 0 auto; }
+  .slide-cartao { grid-template-columns: 1fr; }
+  .slide-info { padding: 24px; }
+  .rodape-grade { grid-template-columns: 1fr 1fr; }
+  .modal { grid-template-columns: 1fr; }
+  .modal img { min-height: 200px; max-height: 260px; }
+  .previa-caneca { margin-right: 50px; width: 240px; }
+}
+
+@media (max-width: 560px) {
+  .secao { padding: 56px 0; }
+  .diferenciais { grid-template-columns: 1fr; }
+  .rodape-grade { grid-template-columns: 1fr; }
+  .carrossel-seta { width: 40px; height: 40px; }
+  .rodape-base { justify-content: center; text-align: center; }
+  .contato-form, .personalizar-form { padding: 22px; }
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .revelar { opacity: 1; transform: none; }
+}
+
+/* =========================================================
+   Toques geek: grade de fundo e brilho neon
+   ========================================================= */
+body {
+  background-image:
+    linear-gradient(rgba(139, 92, 246, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, .05) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+.produto { border: 1px solid var(--borda); }
+.produto:hover { border-color: var(--primaria); box-shadow: 0 0 0 1px var(--primaria), 0 12px 34px rgba(139, 92, 246, .35); }
+.btn-principal { box-shadow: 0 0 18px rgba(139, 92, 246, .35); }
+.btn-principal:hover { box-shadow: 0 0 28px rgba(139, 92, 246, .65); }
+.categoria-cartao { border-color: var(--borda); }
+.categoria-cartao:hover { box-shadow: 0 0 22px rgba(34, 211, 238, .25); }
+.categoria-cartao.ativa { box-shadow: 0 0 24px rgba(139, 92, 246, .5); }
+.banner h1 em { text-shadow: 0 0 26px rgba(139, 92, 246, .75); }
+.titulo-secao .detalhe { box-shadow: 0 0 14px var(--destaque); }
+.campo select option { background: var(--cartao); color: var(--texto); }
+</style>
+</head>
+<body id="inicio">
+
+  <!-- ================= CABEÇALHO (mesmo da home) ================= -->
+  <header class="cabecalho" id="cabecalho">
+    <div class="container cabecalho-linha">
+      <a href="index.html" class="marca" aria-label="Cantelli Store - página inicial">
+        <img src="img/logo" alt="Logotipo Cantelli Store">
+        <span class="marca-nome">Cantelli<small>Store</small></span>
+      </a>
+
+      <nav class="menu" id="menu" aria-label="Menu principal">
+        <a href="index.html">Início</a>
+        <a href="index.html#produtos">Produtos</a>
+        <a href="index.html#categorias">Categorias</a>
+        <a href="index.html#sobre">Sobre Nós</a>
+        <a href="contato.html" class="ativo">Contato</a>
+      </nav>
+
+      <form class="pesquisa" id="formPesquisa" role="search">
+        <span class="icone" aria-hidden="true">🔍</span>
+        <input type="search" id="campoPesquisa" placeholder="Buscar produto..." aria-label="Pesquisar produtos">
+      </form>
+
+      <a class="btn btn-whats btn-whats-topo" id="whatsTopo" href="#" target="_blank" rel="noopener">💬 <span>WhatsApp</span></a>
+      <button class="hamburguer" id="hamburguer" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="contato-topo">
+      <div class="container">
+        <h1>Fale com a Cantelli Store</h1>
+        <p>Conte para a gente a sua ideia! Preencha o formulário ou chame direto no WhatsApp.</p>
+        <a class="voltar-link" href="index.html">← Voltar para a página inicial</a>
+      </div>
+    </section>
+
+    <section class="secao">
+      <div class="container contato-grade">
+
+        <!-- Formulário de contato (demonstrativo, sem envio real) -->
+        <form class="contato-form" id="formContato" novalidate>
+          <h2>Envie uma mensagem</h2>
+
+          <div class="campo" id="campoNome">
+            <label for="nome">Nome *</label>
+            <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Seu nome completo">
+            <span class="msg-erro"></span>
+          </div>
+
+          <div class="campo" id="campoEmail">
+            <label for="email">E-mail *</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="voce@exemplo.com">
+            <span class="msg-erro"></span>
+          </div>
+
+          <div class="campo" id="campoAssunto">
+            <label for="assunto">Assunto *</label>
+            <select id="assunto" name="assunto">
+              <option value="">Selecione um assunto</option>
+              <option>Orçamento</option>
+              <option>Dúvidas sobre produtos</option>
+              <option>Personalização</option>
+              <option>Outros</option>
+            </select>
+            <span class="msg-erro"></span>
+          </div>
+
+          <div class="campo" id="campoMensagem">
+            <label for="mensagem">Mensagem *</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Conte o que você gostaria de personalizar..."></textarea>
+            <span class="msg-erro"></span>
+          </div>
+
+          <button type="submit" class="btn btn-principal">Enviar mensagem</button>
+
+          <!-- Resultado da demonstração -->
+          <div class="resultado" id="resultado" role="status" aria-live="polite"></div>
+        </form>
+
+        <!-- Informações de contato -->
+        <aside class="contato-info">
+          <div class="info-cartao">
+            <h3>💬 Prefere o WhatsApp?</h3>
+            <p style="color:var(--texto-suave);margin-bottom:14px">A resposta costuma ser mais rápida por aqui.</p>
+            <a class="btn btn-whats" id="whatsPagina" href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          </div>
+
+          <div class="info-cartao">
+            <h3>🕐 Atendimento</h3>
+            <ul>
+              <li>Segunda a sexta: 9h às 18h</li>
+              <li>Sábado: 9h às 13h</li>
+              <li>E-mail: contato@cantellistore.exemplo</li>
+            </ul>
+          </div>
+
+          <div class="info-cartao">
+            <h3>📱 Redes sociais</h3>
+            <div class="redes">
+              <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+              <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+              <a href="https://www.pinterest.com/" target="_blank" rel="noopener" aria-label="Pinterest">P</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= RODAPÉ (mesmo da home) ================= -->
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape-grade">
+        <div>
+          <a href="index.html" class="marca">
+            <img src="img/logo.svg" alt="Logotipo Cantelli Store">
+            <span class="marca-nome">Cantelli<small>Store</small></span>
+          </a>
+          <p>Presentes personalizados feitos com carinho, para transformar momentos simples em lembranças especiais.</p>
+          <div class="redes">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="https://www.pinterest.com/" target="_blank" rel="noopener" aria-label="Pinterest">P</a>
+          </div>
+        </div>
+        <div>
+          <h4>Links rápidos</h4>
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#produtos">Produtos</a></li>
+            <li><a href="index.html#categorias">Categorias</a></li>
+            <li><a href="index.html#sobre">Sobre Nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Categorias</h4>
+          <ul>
+            <li><a href="index.html#produtos">Canecas personalizadas</a></li>
+            <li><a href="index.html#produtos">Camisetas</a></li>
+            <li><a href="index.html#produtos">Garrafas e copos</a></li>
+            <li><a href="index.html#produtos">Chaveiros e acessórios</a></li>
+            <li><a href="index.html#produtos">Quadros e decoração</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Atendimento</h4>
+          <ul>
+            <li>Seg a Sex, 9h às 18h</li>
+            <li>Sáb, 9h às 13h</li>
+            <li>contato@cantellistore.exemplo</li>
+            <li><a id="whatsRodape" href="#" target="_blank" rel="noopener">💬 WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="rodape-base">
+        <span>© 2026 Cantelli Store. Todos os direitos reservados. Loja fictícia para fins escolares.</span>
+        <button class="btn-topo" id="voltarTopo">↑ Voltar ao topo</button>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <a class="whats-flutuante" id="whatsFlutuante" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+<script>
+/* =========================================================
+   Cantelli Store — JavaScript da página de contato
+   O formulário é só uma demonstração (não existe servidor)
+   ========================================================= */
+
+/* ---------- Configuração ---------- */
+
+// Número de demonstração do WhatsApp (DDI + DDD + número, só dígitos).
+// Troque pelo número real da loja.
+const WHATSAPP_NUMERO = "5511999999999";
+
+// Monta o link do WhatsApp com uma mensagem já preparada
+function linkWhatsApp(mensagem) {
+  return "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(mensagem);
+}
+
+let temporizadorMensagem;   // temporizador da mensagem rápida
+
+// Mensagem rápida que aparece na parte de baixo da tela
+function mostrarMensagem(texto) {
+  const caixa = document.getElementById("toast");
+  caixa.textContent = texto;
+  caixa.classList.add("visivel");
+  clearTimeout(temporizadorMensagem);
+  temporizadorMensagem = setTimeout(() => caixa.classList.remove("visivel"), 3200);
+}
+
+/* =========================================================
+   MENU, WHATSAPP E BOTÕES GERAIS
+   ========================================================= */
+
+const menu = document.getElementById("menu");
+const botaoMenu = document.getElementById("hamburguer");
+
+// Menu do celular: abre e fecha
+botaoMenu.addEventListener("click", () => {
+  const aberto = menu.classList.toggle("aberto");
+  botaoMenu.textContent = aberto ? "✕" : "☰";
+  botaoMenu.setAttribute("aria-expanded", aberto);
+});
+
+// Todos os links de WhatsApp usam a mesma mensagem padrão
+const mensagemPadrao = "Olá! Vim pelo site da Cantelli Store e gostaria de mais informações.";
+["whatsTopo", "whatsRodape", "whatsFlutuante", "whatsPagina"].forEach((id) => {
+  document.getElementById(id).href = linkWhatsApp(mensagemPadrao);
+});
+
+// Sombra no cabeçalho quando a página rola
+window.addEventListener("scroll", () => {
+  document.getElementById("cabecalho").classList.toggle("rolou", window.scrollY > 10);
+});
+
+// Botão "Voltar ao topo"
+document.getElementById("voltarTopo").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Pesquisa: leva o visitante para a vitrine da página inicial
+document.getElementById("formPesquisa").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const termo = document.getElementById("campoPesquisa").value.trim();
+  window.location.href = "index.html?busca=" + encodeURIComponent(termo) + "#produtos";
+});
+
+/* =========================================================
+   FORMULÁRIO DE CONTATO
+   ========================================================= */
+
+const formulario = document.getElementById("formContato");
+const resultado = document.getElementById("resultado");
+
+// Cada campo obrigatório: onde está, como testar e qual erro mostrar
+const campos = [
+  { id: "nome", caixa: "campoNome", erro: "Informe seu nome (mínimo 3 letras).",
+    valido: (v) => v.trim().length >= 3 },
+  { id: "email", caixa: "campoEmail", erro: "Informe um e-mail válido.",
+    valido: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+  { id: "assunto", caixa: "campoAssunto", erro: "Escolha um assunto.",
+    valido: (v) => v !== "" },
+  { id: "mensagem", caixa: "campoMensagem", erro: "Escreva uma mensagem com pelo menos 10 caracteres.",
+    valido: (v) => v.trim().length >= 10 }
+];
+
+// Confere um campo e mostra (ou limpa) a mensagem de erro. Devolve true se estiver certo.
+function validarCampo(campo) {
+  const entrada = document.getElementById(campo.id);
+  const caixa = document.getElementById(campo.caixa);
+  const ok = campo.valido(entrada.value);
+  caixa.classList.toggle("erro", !ok);
+  caixa.querySelector(".msg-erro").textContent = ok ? "" : campo.erro;
+  return ok;
+}
+
+campos.forEach((campo) => {
+  const entrada = document.getElementById(campo.id);
+  // Valida quando o visitante sai do campo
+  entrada.addEventListener("blur", () => validarCampo(campo));
+  // Se já estava com erro, confere de novo enquanto ele corrige
+  entrada.addEventListener("input", () => {
+    if (document.getElementById(campo.caixa).classList.contains("erro")) validarCampo(campo);
+  });
+});
+
+formulario.addEventListener("submit", (e) => {
+  e.preventDefault();
+  resultado.classList.remove("visivel");
+
+  // Valida todos os campos (sem parar no primeiro erro)
+  let tudoCerto = true;
+  campos.forEach((campo) => {
+    if (!validarCampo(campo)) tudoCerto = false;
+  });
+
+  if (!tudoCerto) {
+    mostrarMensagem("⚠️ Confira os campos destacados.");
+    formulario.querySelector(".campo.erro input, .campo.erro select, .campo.erro textarea").focus();
+    return;
+  }
+
+  // Não existe servidor, então a mensagem NÃO diz que o e-mail foi enviado.
+
+  resultado.classList.add("visivel");
+  resultado.scrollIntoView({ behavior: "smooth", block: "center" });
+  formulario.reset();
+});
+</script>
+</body>
+</html>

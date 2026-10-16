@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cantelli Store | Presentes personalizados para geeks</title>
+  <meta name="description" content="Cantelli Store: canecas, camisetas, garrafas, chaveiros e quadros personalizados com tema geek para presentear.">
+  <link rel="icon" href="img/logo.png" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Chakra+Petch:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+/* =========================================================
+   Cantelli Store — Folha de estilos
+   Tema geek/dark: roxo neon, ciano e rosa neon sobre fundo azul-noite
+   ========================================================= */
+
+/* ---------- Variáveis (identidade visual) ---------- */
+:root {
+  color-scheme: dark;
+  --primaria: #8b5cf6;          /* roxo neon */
+  --primaria-escura: #6d3fd6;
+  --primaria-clara: #a78bfa;    /* para textos sobre fundo escuro */
+  --destaque: #22d3ee;          /* ciano */
+  --magenta: #f472b6;           /* rosa neon (detalhes) */
+  --fundo: #0f1020;
+  --fundo-2: #171832;
+  --cartao: #1d1f3a;
+  --borda: #2c2e55;
+  --titulo: #f2f2ff;
+  --texto: #d9daf2;
+  --texto-suave: #a3a5c8;
+  --sombra: 0 6px 20px rgba(0, 0, 0, 0.4);
+  --sombra-forte: 0 14px 34px rgba(0, 0, 0, 0.55);
+  --raio: 18px;
+  --fonte-titulo: "Chakra Petch", "Segoe UI", sans-serif;
+  --fonte-texto: "Nunito", "Segoe UI", Arial, sans-serif;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  font-family: var(--fonte-texto);
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3 { font-family: var(--fonte-titulo); color: var(--titulo); line-height: 1.2; }
+
+.container { width: min(1180px, 92%); margin-inline: auto; }
+.secao { padding: 80px 0; }
+.secao-escura { background: var(--fundo-2); }
+.titulo-secao { text-align: center; margin-bottom: 44px; }
+.titulo-secao h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+.titulo-secao p { color: var(--texto-suave); max-width: 560px; margin: 10px auto 0; }
+.titulo-secao .detalhe {
+  display: block; width: 60px; height: 4px; background: var(--destaque);
+  border-radius: 4px; margin: 14px auto 0;
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 26px; border-radius: 999px; border: 2px solid transparent;
+  font-weight: 700; cursor: pointer; transition: transform .25s, box-shadow .25s, background .25s, color .25s;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+.btn-principal { background: var(--primaria); color: #fff; }
+.btn-principal:hover { background: var(--primaria-escura); }
+.btn-contorno { border-color: var(--primaria); color: var(--primaria-clara); background: transparent; }
+.btn-contorno:hover { background: var(--primaria); color: #fff; }
+.btn-whats { background: #25a35a; color: #fff; }
+.btn-whats:hover { background: #1d8a4a; }
+.btn-pequeno { padding: 9px 18px; font-size: .9rem; }
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15, 16, 32, 0.92); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--borda);
+  transition: box-shadow .3s;
+}
+.cabecalho.rolou { box-shadow: var(--sombra); }
+.cabecalho-linha { display: flex; align-items: center; gap: 22px; min-height: 76px; }
+.marca { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.marca img { width: 44px; height: 44px; }
+.marca-nome { font-family: var(--fonte-titulo); font-size: 1.45rem; font-weight: 700; color: var(--titulo); line-height: 1; }
+.marca-nome small { display: block; font-family: var(--fonte-texto); font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--primaria-clara); margin-top: 3px; }
+
+.menu { display: flex; gap: 6px; margin-left: auto; }
+.menu a { padding: 8px 14px; border-radius: 999px; font-weight: 600; transition: background .25s, color .25s; }
+.menu a:hover, .menu a.ativo { background: var(--fundo-2); color: var(--primaria-clara); }
+
+.pesquisa { position: relative; }
+.pesquisa input {
+  width: 200px; padding: 9px 16px 9px 38px; border-radius: 999px;
+  border: 2px solid var(--borda); background: var(--cartao); outline: none;
+  transition: border-color .25s, width .25s;
+}
+.pesquisa input:focus { border-color: var(--primaria); width: 240px; }
+.pesquisa .icone { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: .95rem; pointer-events: none; }
+
+.btn-whats-topo { padding: 9px 16px; font-size: .9rem; }
+
+.hamburguer {
+  display: none; margin-left: auto; width: 44px; height: 44px; border: none;
+  background: var(--fundo-2); border-radius: 12px; cursor: pointer; font-size: 1.4rem;
+}
+
+/* ---------- Banner ---------- */
+.banner {
+  background: radial-gradient(circle at 85% 20%, rgba(139, 92, 246, .28) 0, transparent 45%), radial-gradient(circle at 10% 90%, rgba(34, 211, 238, .14) 0, transparent 40%), linear-gradient(135deg, var(--fundo) 0%, var(--fundo-2) 100%);
+  padding: 70px 0 80px; overflow: hidden;
+}
+.banner-grade { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.selo-banner {
+  display: inline-block; background: var(--destaque); color: var(--fundo); font-weight: 800;
+  padding: 5px 16px; border-radius: 999px; font-size: .85rem; margin-bottom: 18px;
+}
+.banner h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 18px; }
+.banner h1 em { color: var(--primaria-clara); font-style: italic; }
+.banner p { font-size: 1.1rem; color: var(--texto-suave); max-width: 480px; margin-bottom: 28px; }
+.banner-botoes { display: flex; flex-wrap: wrap; gap: 14px; }
+.banner-imagem img { border-radius: 40px; box-shadow: var(--sombra-forte); animation: flutuar 6s ease-in-out infinite; }
+
+@keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ---------- Carrossel ---------- */
+.carrossel { position: relative; max-width: 960px; margin: 0 auto; }
+.carrossel-janela { overflow: hidden; border-radius: var(--raio); }
+.carrossel-trilho { display: flex; transition: transform .6s cubic-bezier(.4, .1, .2, 1); }
+.slide { min-width: 100%; padding: 6px; }
+.slide-cartao {
+  display: grid; grid-template-columns: 1fr 1fr; background: var(--cartao);
+  border-radius: var(--raio); overflow: hidden; box-shadow: var(--sombra);
+}
+.slide-cartao img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.slide-info { padding: 36px; display: flex; flex-direction: column; justify-content: center; gap: 10px; align-items: flex-start; }
+.slide-info h3 { font-size: 1.7rem; }
+.slide-info p { color: var(--texto-suave); }
+.slide-info .preco { font-size: 1.3rem; font-weight: 800; color: var(--destaque); }
+.categoria-etiqueta { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--magenta); }
+
+.selo {
+  display: inline-block; padding: 4px 14px; border-radius: 999px; font-size: .78rem; font-weight: 800;
+  background: var(--primaria); color: #fff;
+}
+.selo.novidade { background: var(--magenta); color: var(--fundo); }
+.selo.presente { background: var(--destaque); color: var(--fundo); }
+
+.carrossel-seta {
+  position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px;
+  border-radius: 50%; border: none; background: var(--cartao); color: var(--primaria-clara);
+  font-size: 1.5rem; font-weight: 800; cursor: pointer; box-shadow: var(--sombra); z-index: 2;
+  transition: background .25s, color .25s, transform .25s;
+}
+.carrossel-seta:hover { background: var(--primaria); color: #fff; transform: translateY(-50%) scale(1.08); }
+.carrossel-seta.anterior { left: -22px; }
+.carrossel-seta.proximo { right: -22px; }
+.indicadores { display: flex; justify-content: center; gap: 10px; margin-top: 22px; }
+.indicadores button {
+  width: 12px; height: 12px; border-radius: 50%; border: none; background: #3a3c66; cursor: pointer;
+  transition: width .3s, background .3s;
+}
+.indicadores button.ativo { width: 34px; border-radius: 999px; background: var(--primaria); }
+
+/* ---------- Categorias ---------- */
+.categorias-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px; }
+.categoria-cartao {
+  background: var(--cartao); border: 2px solid transparent; border-radius: var(--raio);
+  padding: 26px 14px; text-align: center; cursor: pointer; box-shadow: var(--sombra);
+  transition: transform .3s, border-color .3s, background .3s;
+}
+.categoria-cartao:hover { transform: translateY(-6px); border-color: var(--destaque); }
+.categoria-cartao.ativa { background: var(--primaria); border-color: var(--primaria); }
+.categoria-cartao.ativa h3, .categoria-cartao.ativa small { color: #fff; }
+.categoria-cartao .emoji { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+.categoria-cartao h3 { font-size: 1.05rem; font-family: var(--fonte-texto); font-weight: 800; }
+.categoria-cartao small { color: var(--texto-suave); }
+
+/* ---------- Vitrine ---------- */
+.vitrine-barra { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+.vitrine-barra p { color: var(--texto-suave); font-weight: 600; }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; }
+.filtros button {
+  padding: 8px 18px; border-radius: 999px; border: 2px solid var(--borda);
+  background: var(--cartao); cursor: pointer; font-weight: 700; transition: all .25s;
+}
+.filtros button:hover { border-color: var(--primaria); color: var(--primaria-clara); }
+.filtros button.ativo { background: var(--primaria); border-color: var(--primaria); color: #fff; }
+
+.vitrine-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
+.produto {
+  background: var(--cartao); border-radius: var(--raio); overflow: hidden; box-shadow: var(--sombra);
+  display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s;
+  animation: surgir .5s ease both;
+}
+.produto:hover { transform: translateY(-8px); box-shadow: var(--sombra-forte); }
+.produto-foto { position: relative; overflow: hidden; }
+.produto-foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .5s; }
+.produto:hover .produto-foto img { transform: scale(1.08); }
+.produto-foto .selo { position: absolute; top: 12px; left: 12px; }
+.produto-corpo { padding: 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.produto-corpo h3 { font-size: 1.15rem; }
+.produto-corpo p { font-size: .92rem; color: var(--texto-suave); flex: 1; }
+.preco { font-weight: 800; color: var(--destaque); }
+.produto-botoes { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.produto-botoes .btn { flex: 1; padding: 9px 10px; font-size: .85rem; }
+.vazio { grid-column: 1 / -1; text-align: center; padding: 50px 10px; color: var(--texto-suave); font-weight: 600; }
+
+@keyframes surgir { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Personalização ---------- */
+.personalizar-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.personalizar-form { background: var(--cartao); padding: 32px; border-radius: var(--raio); box-shadow: var(--sombra); display: grid; gap: 16px; }
+.campo { display: grid; gap: 6px; }
+.campo label { font-weight: 700; font-size: .92rem; }
+.campo input, .campo select, .campo textarea {
+  width: 100%; padding: 11px 14px; border-radius: 12px; border: 2px solid var(--borda);
+  background: var(--fundo); outline: none; transition: border-color .25s, box-shadow .25s;
+}
+.campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--primaria); box-shadow: 0 0 0 4px rgba(139, 92, 246, .25); }
+.campo textarea { resize: vertical; min-height: 130px; }
+.campo.erro input, .campo.erro textarea, .campo.erro select { border-color: #ff6b81; }
+.msg-erro { color: #ff6b81; font-size: .82rem; font-weight: 700; min-height: 1em; }
+.cores { display: flex; gap: 10px; }
+.cores button {
+  width: 36px; height: 36px; border-radius: 50%; border: 3px solid transparent;
+  cursor: pointer; box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); transition: transform .2s;
+}
+.cores button:hover { transform: scale(1.12); }
+.cores button.ativo { border-color: var(--titulo); }
+
+.previa { display: flex; justify-content: center; }
+.previa-caneca { position: relative; width: 280px; filter: drop-shadow(0 16px 18px rgba(74, 44, 29, .25)); }
+.previa-corpo {
+  height: 240px; border-radius: 26px; background: var(--primaria); position: relative;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 20px; transition: background .4s; overflow: hidden;
+}
+.previa-corpo::before { content: ""; position: absolute; left: 14px; top: 14px; bottom: 14px; width: 16px; border-radius: 10px; background: rgba(255, 255, 255, .18); }
+.previa-texto { color: #fff3dc; font-family: var(--fonte-titulo); font-size: 1.8rem; font-weight: 700; word-break: break-word; line-height: 1.2; }
+.previa-alca {
+  position: absolute; right: -50px; top: 50px; width: 70px; height: 110px;
+  border: 22px solid var(--primaria); border-left: none; border-radius: 0 60px 60px 0; transition: border-color .4s;
+}
+
+/* ---------- Sobre ---------- */
+.sobre-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+.sobre-imagens { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.sobre-imagens img { border-radius: var(--raio); box-shadow: var(--sombra); aspect-ratio: 1; object-fit: cover; }
+.sobre-imagens img:nth-child(2) { margin-top: 30px; }
+.sobre-texto h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 16px; }
+.sobre-texto p { color: var(--texto-suave); margin-bottom: 14px; }
+.diferenciais { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+.diferencial { background: var(--cartao); padding: 18px 12px; border-radius: 14px; text-align: center; box-shadow: var(--sombra); transition: transform .3s; }
+.diferencial:hover { transform: translateY(-4px); }
+.diferencial .emoji { font-size: 1.9rem; display: block; }
+.diferencial strong { display: block; font-size: .95rem; }
+.diferencial span:last-child { font-size: .8rem; color: var(--texto-suave); }
+
+/* ---------- Depoimentos ---------- */
+.depoimentos-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.depoimento { background: var(--cartao); padding: 28px; border-radius: var(--raio); box-shadow: var(--sombra); transition: transform .3s; }
+.depoimento:hover { transform: translateY(-6px); }
+.estrelas { color: #fbbf24; font-size: 1.15rem; letter-spacing: 2px; margin-bottom: 10px; }
+.depoimento p { font-style: italic; margin-bottom: 16px; }
+.depoimento strong { color: var(--titulo); }
+.aviso-ficticio { text-align: center; margin-top: 26px; font-size: .85rem; color: var(--texto-suave); }
+
+/* ---------- Contato (resumo na home) ---------- */
+.contato-resumo { text-align: center; background: linear-gradient(135deg, #241f4a, #17323f); border: 1px solid var(--borda); color: var(--texto); border-radius: 28px; padding: 56px 24px; }
+.contato-resumo h2 { color: #fff; margin-bottom: 10px; }
+.contato-resumo p { color: var(--texto-suave); max-width: 520px; margin: 0 auto 26px; }
+.contato-resumo .btn-contorno { border-color: #fff; color: #fff; }
+.contato-resumo .btn-contorno:hover { background: #fff; color: var(--fundo); }
+.redes { display: flex; gap: 12px; flex-wrap: wrap; }
+.contato-resumo .redes { justify-content: center; margin-top: 26px; }
+.redes a {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255, 255, 255, .14); font-weight: 800; transition: background .25s, transform .25s;
+}
+.redes a:hover { background: var(--destaque); color: var(--fundo); transform: translateY(-3px); }
+
+/* ---------- Página de contato ---------- */
+.contato-topo { background: linear-gradient(135deg, var(--fundo) 0%, var(--fundo-2) 100%); padding: 60px 0 30px; text-align: center; }
+.contato-topo h1 { font-size: clamp(2rem, 5vw, 3rem); }
+.contato-topo p { color: var(--texto-suave); max-width: 560px; margin: 12px auto 0; }
+.contato-grade { display: grid; grid-template-columns: 1.3fr 1fr; gap: 34px; align-items: start; }
+.contato-form { background: var(--cartao); padding: 34px; border-radius: var(--raio); box-shadow: var(--sombra); display: grid; gap: 16px; }
+.contato-info { display: grid; gap: 18px; }
+.info-cartao { background: var(--cartao); padding: 24px; border-radius: var(--raio); box-shadow: var(--sombra); }
+.info-cartao h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.info-cartao li { padding: 3px 0; color: var(--texto-suave); }
+.info-cartao .redes a { background: var(--fundo-2); color: var(--titulo); }
+.info-cartao .redes a:hover { background: var(--primaria); color: #fff; }
+.resultado { display: none; padding: 16px 18px; border-radius: 12px; background: rgba(34, 211, 238, .1); border: 2px solid var(--destaque); font-weight: 600; }
+.resultado.visivel { display: block; animation: surgir .4s ease; }
+.voltar-link { display: inline-block; margin-top: 18px; font-weight: 700; color: var(--primaria-clara); }
+.voltar-link:hover { text-decoration: underline; }
+
+/* ---------- Modal ---------- */
+.modal-fundo {
+  position: fixed; inset: 0; background: rgba(5, 5, 15, .78); display: none;
+  align-items: center; justify-content: center; padding: 20px; z-index: 200;
+}
+.modal-fundo.aberto { display: flex; animation: fade .25s ease; }
+.modal {
+  background: var(--cartao); border-radius: 22px; max-width: 760px; width: 100%; max-height: 92vh;
+  overflow: auto; position: relative; display: grid; grid-template-columns: 1fr 1fr; box-shadow: var(--sombra-forte);
+  animation: surgir .35s ease;
+}
+.modal img { width: 100%; height: 100%; object-fit: cover; min-height: 280px; }
+.modal-info { padding: 34px 28px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.modal-info h3 { font-size: 1.6rem; }
+.modal-info p { color: var(--texto-suave); }
+.modal-fechar {
+  position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%;
+  border: none; background: var(--fundo-2); font-size: 1.3rem; cursor: pointer; z-index: 2;
+}
+.modal-fechar:hover { background: var(--primaria); color: #fff; }
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Mensagem (toast) ---------- */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 30px); opacity: 0;
+  background: var(--primaria-escura); color: #fff; padding: 14px 26px; border-radius: 999px;
+  box-shadow: var(--sombra-forte); z-index: 300; pointer-events: none; max-width: 92%; text-align: center;
+  transition: opacity .35s, transform .35s;
+}
+.toast.visivel { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Rodapé ---------- */
+.rodape { background: #0a0b17; border-top: 1px solid var(--borda); color: var(--texto-suave); padding: 60px 0 24px; }
+.rodape-grade { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 34px; }
+.rodape .marca-nome { color: #fff; }
+.rodape p { margin: 14px 0; font-size: .92rem; }
+.rodape h4 { color: #fff; font-family: var(--fonte-titulo); margin-bottom: 12px; font-size: 1.1rem; }
+.rodape li { padding: 4px 0; }
+.rodape li a:hover { color: var(--destaque); }
+.rodape-base {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .15);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: .85rem;
+}
+.btn-topo {
+  background: var(--destaque); color: var(--fundo); border: none; padding: 9px 20px;
+  border-radius: 999px; font-weight: 800; cursor: pointer; transition: transform .25s;
+}
+.btn-topo:hover { transform: translateY(-3px); }
+
+/* ---------- Botão flutuante do WhatsApp ---------- */
+.whats-flutuante {
+  position: fixed; right: 20px; bottom: 20px; width: 58px; height: 58px; border-radius: 50%;
+  background: #25a35a; color: #fff; display: grid; place-items: center; font-size: 1.7rem;
+  box-shadow: var(--sombra-forte); z-index: 90; transition: transform .25s;
+}
+.whats-flutuante:hover { transform: scale(1.1); }
+
+/* ---------- Animação ao rolar ---------- */
+.revelar { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.revelar.visivel { opacity: 1; transform: none; }
+
+/* =========================================================
+   Responsivo
+   ========================================================= */
+@media (max-width: 1060px) {
+  .pesquisa input, .pesquisa input:focus { width: 150px; }
+  .btn-whats-topo span { display: none; }
+  .carrossel-seta.anterior { left: 6px; }
+  .carrossel-seta.proximo { right: 6px; }
+}
+
+@media (max-width: 900px) {
+  .hamburguer { display: block; }
+  .cabecalho-linha { flex-wrap: wrap; padding: 10px 0; }
+  .menu {
+    display: none; width: 100%; flex-direction: column; margin: 0; order: 5; padding-top: 6px;
+  }
+  .menu.aberto { display: flex; animation: surgir .3s ease; }
+  .menu a { padding: 12px 14px; }
+  .pesquisa { order: 4; flex: 1; min-width: 160px; }
+  .pesquisa input, .pesquisa input:focus { width: 100%; }
+  .btn-whats-topo { order: 3; }
+  .hamburguer { order: 2; }
+
+  .banner-grade, .sobre-grade, .personalizar-grade, .contato-grade { grid-template-columns: 1fr; }
+  .banner { padding: 40px 0 56px; }
+  .banner-imagem { order: -1; max-width: 420px; margin: 0 auto; }
+  .slide-cartao { grid-template-columns: 1fr; }
+  .slide-info { padding: 24px; }
+  .rodape-grade { grid-template-columns: 1fr 1fr; }
+  .modal { grid-template-columns: 1fr; }
+  .modal img { min-height: 200px; max-height: 260px; }
+  .previa-caneca { margin-right: 50px; width: 240px; }
+}
+
+@media (max-width: 560px) {
+  .secao { padding: 56px 0; }
+  .diferenciais { grid-template-columns: 1fr; }
+  .rodape-grade { grid-template-columns: 1fr; }
+  .carrossel-seta { width: 40px; height: 40px; }
+  .rodape-base { justify-content: center; text-align: center; }
+  .contato-form, .personalizar-form { padding: 22px; }
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .revelar { opacity: 1; transform: none; }
+}
+
+/* =========================================================
+   Toques geek: grade de fundo e brilho neon
+   ========================================================= */
+body {
+  background-image:
+    linear-gradient(rgba(139, 92, 246, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, .05) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+.produto { border: 1px solid var(--borda); }
+.produto:hover { border-color: var(--primaria); box-shadow: 0 0 0 1px var(--primaria), 0 12px 34px rgba(139, 92, 246, .35); }
+.btn-principal { box-shadow: 0 0 18px rgba(139, 92, 246, .35); }
+.btn-principal:hover { box-shadow: 0 0 28px rgba(139, 92, 246, .65); }
+.categoria-cartao { border-color: var(--borda); }
+.categoria-cartao:hover { box-shadow: 0 0 22px rgba(34, 211, 238, .25); }
+.categoria-cartao.ativa { box-shadow: 0 0 24px rgba(139, 92, 246, .5); }
+.banner h1 em { text-shadow: 0 0 26px rgba(139, 92, 246, .75); }
+.titulo-secao .detalhe { box-shadow: 0 0 14px var(--destaque); }
+.campo select option { background: var(--cartao); color: var(--texto); }
+</style>
+</head>
+<body id="inicio">
+
+  <!-- ================= CABEÇALHO ================= -->
+  <header class="cabecalho" id="cabecalho">
+    <div class="container cabecalho-linha">
+      <a href="#inicio" class="marca" data-alvo="inicio" aria-label="Cantelli Store - início">
+        <img src="img/logo.png" alt="Logotipo Cantelli Store">
+        <span class="marca-nome">Cantelli<small>Store</small></span>
+      </a>
+
+      <!-- Menu de navegação: os links com data-alvo rolam até a seção -->
+      <nav class="menu" id="menu" aria-label="Menu principal">
+        <a href="#inicio" data-alvo="inicio">Início</a>
+        <a href="#produtos" data-alvo="produtos">Produtos</a>
+        <a href="#categorias" data-alvo="categorias">Categorias</a>
+        <a href="#sobre" data-alvo="sobre">Sobre Nós</a>
+        <a href="contato.html">Contato</a>
+      </nav>
+
+      <form class="pesquisa" id="formPesquisa" role="search">
+        <span class="icone" aria-hidden="true">🔍</span>
+        <input type="search" id="campoPesquisa" placeholder="Buscar produto..." aria-label="Pesquisar produtos">
+      </form>
+
+      <a class="btn btn-whats btn-whats-topo" id="whatsTopo" href="#" target="_blank" rel="noopener">💬 <span>WhatsApp</span></a>
+      <button class="hamburguer" id="hamburguer" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= BANNER ================= -->
+    <section class="banner">
+      <div class="container banner-grade">
+        <div class="banner-texto">
+          <span class="selo-banner">🎮 Feito para geeks e gamers</span>
+          <h1>Presentes únicos, feitos para <em>marcar momentos</em></h1>
+          <p>Na Cantelli Store cada peça é pensada com cuidado para quem vive de games, tecnologia e cultura geek: canecas, camisetas, garrafas, chaveiros e quadros personalizados.</p>
+          <div class="banner-botoes">
+            <button class="btn btn-principal" data-alvo="produtos">Conheça nossos produtos</button>
+            <button class="btn btn-contorno" data-alvo="personalizar">Personalize seu presente</button>
+          </div>
+        </div>
+        <div class="banner-imagem">
+          <img src="img/logo.png" alt="Quadro, caneca e camiseta personalizados" width="800" height="640">
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CARROSSEL DE DESTAQUES ================= -->
+    <section class="secao" id="destaques">
+      <div class="container">
+        <div class="titulo-secao revelar">
+          <h2>Produtos em destaque</h2>
+          <span class="detalhe"></span>
+          <p>Os queridinhos da nossa loja neste momento.</p>
+        </div>
+        <div class="carrossel revelar" id="carrossel">
+          <button class="carrossel-seta anterior" id="slideAnterior" aria-label="Produto anterior">‹</button>
+          <div class="carrossel-janela">
+            <div class="carrossel-trilho" id="carrosselTrilho">
+              <div class="slide">
+                <div class="slide-cartao">
+                  <img src="img/caneca/canecapixel.jpg" alt="Caneca Coração Pixel">
+                  <div class="slide-info">
+                    <span class="selo">Mais vendido</span>
+                    <span class="categoria-etiqueta">Canecas personalizadas</span>
+                    <h3>Caneca Coração Pixel</h3>
+                    <p>Coração em pixel art com o seu nome de jogador.</p>
+                    <span class="preco">R$ 39,90</span>
+                    <button class="btn btn-principal" onclick="pedirOrcamento('Caneca Coração Pixel')">Tenho interesse</button>
+                  </div>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="slide-cartao">
+                  <img src="img/camiseta/gameover.jpg" alt="Camiseta Game Over">
+                  <div class="slide-info">
+                    <span class="selo">Mais vendido</span>
+                    <span class="categoria-etiqueta">Camisetas</span>
+                    <h3>Camiseta Game Over</h3>
+                    <p>Estampa retrô de fim de jogo, unissex.</p>
+                    <span class="preco">R$ 59,90</span>
+                    <button class="btn btn-principal" onclick="pedirOrcamento('Camiseta Game Over')">Tenho interesse</button>
+                  </div>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="slide-cartao">
+                  <img src="img/garrafa/pocao.jpg" alt="Garrafa Poção Mágica">
+                  <div class="slide-info">
+                    <span class="selo presente">Presente especial</span>
+                    <span class="categoria-etiqueta">Garrafas e copos</span>
+                    <h3>Garrafa Poção Mágica</h3>
+                    <p>Garrafa em formato de poção, linda para decorar o setup.</p>
+                    <span class="preco">R$ 79,90</span>
+                    <button class="btn btn-principal" onclick="pedirOrcamento('Garrafa Poção Mágica')">Tenho interesse</button>
+                  </div>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="slide-cartao">
+                  <img src="img/acessorios/chaveirocoracao.jpg" alt="Chaveiro Coração Pixel">
+                  <div class="slide-info">
+                    <span class="selo novidade">Novidade</span>
+                    <span class="categoria-etiqueta">Chaveiros e acessórios</span>
+                    <h3>Chaveiro Coração Pixel</h3>
+                    <p>Coração em pixel art com argola de metal.</p>
+                    <span class="preco">R$ 14,90</span>
+                    <button class="btn btn-principal" onclick="pedirOrcamento('Chaveiro Coração Pixel')">Tenho interesse</button>
+                  </div>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="slide-cartao">
+                  <img src="img/quadros/quadrogalaxia.jpg" alt="Quadro Galáxia">
+                  <div class="slide-info">
+                    <span class="selo presente">Presente especial</span>
+                    <span class="categoria-etiqueta">Quadros e decoração</span>
+                    <h3>Quadro Galáxia</h3>
+                    <p>Um pedaço do espaço para o seu quarto ou escritório.</p>
+                    <span class="preco">R$ 94,90</span>
+                    <button class="btn btn-principal" onclick="pedirOrcamento('Quadro Galáxia')">Tenho interesse</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="carrossel-seta proximo" id="slideProximo" aria-label="Próximo produto">›</button>
+          <div class="indicadores" id="indicadores">
+            <button onclick="irParaSlide(0)" aria-label="Ir para o produto 1"></button>
+            <button onclick="irParaSlide(1)" aria-label="Ir para o produto 2"></button>
+            <button onclick="irParaSlide(2)" aria-label="Ir para o produto 3"></button>
+            <button onclick="irParaSlide(3)" aria-label="Ir para o produto 4"></button>
+            <button onclick="irParaSlide(4)" aria-label="Ir para o produto 5"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CATEGORIAS ================= -->
+    <section class="secao secao-escura" id="categorias">
+      <div class="container">
+        <div class="titulo-secao revelar">
+          <h2>Nossas categorias</h2>
+          <span class="detalhe"></span>
+          <p>Clique em uma categoria para ver somente os produtos dela.</p>
+        </div>
+        <div class="categorias-grade revelar">
+          <button class="categoria-cartao ativa" data-filtro="todos" onclick="escolherCategoria('todos', true)">
+            <span class="emoji">🎁</span>
+            <h3>Todos os produtos</h3>
+            <small>25 produtos</small>
+          </button>
+          <button class="categoria-cartao" data-filtro="canecas" onclick="escolherCategoria('canecas', true)">
+            <span class="emoji">☕</span>
+            <h3>Canecas personalizadas</h3>
+            <small>5 produtos</small>
+          </button>
+          <button class="categoria-cartao" data-filtro="camisetas" onclick="escolherCategoria('camisetas', true)">
+            <span class="emoji">👕</span>
+            <h3>Camisetas</h3>
+            <small>5 produtos</small>
+          </button>
+          <button class="categoria-cartao" data-filtro="garrafas" onclick="escolherCategoria('garrafas', true)">
+            <span class="emoji">🥤</span>
+            <h3>Garrafas e copos</h3>
+            <small>5 produtos</small>
+          </button>
+          <button class="categoria-cartao" data-filtro="chaveiros" onclick="escolherCategoria('chaveiros', true)">
+            <span class="emoji">🔑</span>
+            <h3>Chaveiros e acessórios</h3>
+            <small>5 produtos</small>
+          </button>
+          <button class="categoria-cartao" data-filtro="quadros" onclick="escolherCategoria('quadros', true)">
+            <span class="emoji">🖼️</span>
+            <h3>Quadros e decoração</h3>
+            <small>5 produtos</small>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VITRINE ================= -->
+    <section class="secao" id="produtos">
+      <div class="container">
+        <div class="titulo-secao revelar">
+          <h2>Vitrine de produtos</h2>
+          <span class="detalhe"></span>
+          <p>Todos os itens podem ser personalizados. Solicite um orçamento sem compromisso!</p>
+        </div>
+        <div class="vitrine-barra">
+          <div class="filtros">
+            <button class="ativo" data-filtro="todos" onclick="escolherCategoria('todos')">Todos os produtos</button>
+            <button data-filtro="canecas" onclick="escolherCategoria('canecas')">Canecas personalizadas</button>
+            <button data-filtro="camisetas" onclick="escolherCategoria('camisetas')">Camisetas</button>
+            <button data-filtro="garrafas" onclick="escolherCategoria('garrafas')">Garrafas e copos</button>
+            <button data-filtro="chaveiros" onclick="escolherCategoria('chaveiros')">Chaveiros e acessórios</button>
+            <button data-filtro="quadros" onclick="escolherCategoria('quadros')">Quadros e decoração</button>
+          </div>
+          <p id="contador">25 produtos encontrados</p>
+        </div>
+        <div class="vitrine-grade" id="vitrine">
+        <!-- ===== CANECAS ===== -->
+        <article class="produto" data-categoria="canecas">
+          <div class="produto-foto">
+            <span class="selo">Mais vendido</span>
+            <img src="img/caneca/canecapixel.jpg" alt="Caneca Coração Pixel">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Canecas personalizadas</span>
+            <h3>Caneca Coração Pixel</h3>
+            <p class="descricao">Coração em pixel art com o seu nome de jogador.</p>
+            <span class="detalhes" hidden>Cerâmica de 325 ml, impressão durável, pode ir à máquina de lavar louça.</span>
+            <span class="preco">R$ 39,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Caneca Coração Pixel')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="canecas">
+          <div class="produto-foto">
+            <span class="selo novidade">Novidade</span>
+            <img src="img/caneca/cubomagico.jpg" alt="Caneca Cubo Mágico">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Canecas personalizadas</span>
+            <h3>Caneca Cubo Mágico</h3>
+            <p class="descricao">Arte colorida inspirada no cubo mágico, para quem ama desafios.</p>
+            <span class="detalhes" hidden>Acabamento brilhante, alça confortável e nome personalizado.</span>
+            <span class="preco">R$ 49,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Caneca Cubo Mágico')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="canecas">
+          <div class="produto-foto">
+            <img src="img/caneca/d20.jpg" alt="Caneca Dado D20">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Canecas personalizadas</span>
+            <h3>Caneca Dado D20</h3>
+            <p class="descricao">Efeito de dado D20, perfeita para as mesas de RPG.</p>
+            <span class="detalhes" hidden>Caneca de vidro de 300 ml, ótima para bebidas quentes ou geladas.</span>
+            <span class="preco">R$ 44,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Caneca Dado D20')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="canecas">
+          <div class="produto-foto">
+            <img src="img/caneca/helloword.jpg" alt="Caneca Hello, World!">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Canecas personalizadas</span>
+            <h3>Caneca Hello, World!</h3>
+            <p class="descricao">Para quem vive de código e café, com a frase que você quiser.</p>
+            <span class="detalhes" hidden>Cerâmica preta de 325 ml, impressão resistente.</span>
+            <span class="preco">R$ 42,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Caneca Hello, World!')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="canecas">
+          <div class="produto-foto">
+            <span class="selo presente">Presente especial</span>
+            <img src="img/caneca/player1.jpg" alt="Caneca Player 1">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Canecas personalizadas</span>
+            <h3>Caneca Player 1</h3>
+            <p class="descricao">Alça vermelha e controle de videogame, ótima para presentear.</p>
+            <span class="detalhes" hidden>Cerâmica de 325 ml, interior e alça coloridos.</span>
+            <span class="preco">Consulte o valor</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Caneca Player 1')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <!-- ===== CAMISETAS ===== -->
+        <article class="produto" data-categoria="camisetas">
+          <div class="produto-foto">
+            <img src="img/camiseta/devon.jpg" alt="Camiseta Dev Mode ON">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Camisetas</span>
+            <h3>Camiseta Dev Mode ON</h3>
+            <p class="descricao">Camiseta branca com símbolo de código, para quem programa até de madrugada.</p>
+            <span class="detalhes" hidden>100% algodão, tamanhos P ao GG, estampa resistente a lavagens.</span>
+            <span class="preco">R$ 62,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Camiseta Dev Mode ON')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="camisetas">
+          <div class="produto-foto">
+            <span class="selo">Mais vendido</span>
+            <img src="img/camiseta/gameover.jpg" alt="Camiseta Game Over">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Camisetas</span>
+            <h3>Camiseta Game Over</h3>
+            <p class="descricao">Estampa retrô de fim de jogo, unissex.</p>
+            <span class="detalhes" hidden>100% algodão, tamanhos P ao GG, estampa personalizável.</span>
+            <span class="preco">R$ 59,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Camiseta Game Over')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="camisetas">
+          <div class="produto-foto">
+            <span class="selo novidade">Novidade</span>
+            <img src="img/camiseta/invasor.jpg" alt="Camiseta Invasor Espacial">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Camisetas</span>
+            <h3>Camiseta Invasor Espacial</h3>
+            <p class="descricao">Preta com estampa espacial, no estilo dos games clássicos.</p>
+            <span class="detalhes" hidden>100% algodão, tamanhos P ao GG, nome nas costas opcional.</span>
+            <span class="preco">R$ 64,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Camiseta Invasor Espacial')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="camisetas">
+          <div class="produto-foto">
+            <span class="selo presente">Presente especial</span>
+            <img src="img/camiseta/levelup.jpg" alt="Camiseta Level Up">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Camisetas</span>
+            <h3>Camiseta Level Up</h3>
+            <p class="descricao">Para comemorar cada fase vencida.</p>
+            <span class="detalhes" hidden>Algodão penteado, kits de camisetas iguais com desconto.</span>
+            <span class="preco">Consulte o valor</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Camiseta Level Up')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="camisetas">
+          <div class="produto-foto">
+            <img src="img/camiseta/galaxia.jpg" alt="Camiseta Estrela Galáctica">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Camisetas</span>
+            <h3>Camiseta Estrela Galáctica</h3>
+            <p class="descricao">Estrela dourada pronta para a sua frase.</p>
+            <span class="detalhes" hidden>Algodão macio, tamanhos P ao GG, estampa frente e verso.</span>
+            <span class="preco">R$ 59,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Camiseta Estrela Galáctica')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <!-- ===== GARRAFAS E COPOS ===== -->
+        <article class="produto" data-categoria="garrafas">
+          <div class="produto-foto">
+            <span class="selo novidade">Novidade</span>
+            <img src="img/garrafa/copo%20cafe.jpg" alt="Copo Térmico Café">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Garrafas e copos</span>
+            <h3>Copo Térmico Café</h3>
+            <p class="descricao">Copo térmico com tampa para o café do dia a dia.</p>
+            <span class="detalhes" hidden>Parede dupla de 400 ml, ótimo para levar ao trabalho.</span>
+            <span class="preco">R$ 69,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Copo Térmico Café')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="garrafas">
+          <div class="produto-foto">
+            <img src="img/garrafa/estrelacomisca.jpg" alt="Garrafa Estrela Cósmica">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Garrafas e copos</span>
+            <h3>Garrafa Estrela Cósmica</h3>
+            <p class="descricao">Garrafa com céu estrelado para levar em qualquer missão.</p>
+            <span class="detalhes" hidden>Aço inox de 500 ml, mantém a temperatura por horas.</span>
+            <span class="preco">R$ 84,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Garrafa Estrela Cósmica')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="garrafas">
+          <div class="produto-foto">
+            <img src="img/garrafa/modonoturno.jpg" alt="Copo Modo Noturno">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Garrafas e copos</span>
+            <h3>Copo Modo Noturno</h3>
+            <p class="descricao">Copo preto com frase para as madrugadas de maratona.</p>
+            <span class="detalhes" hidden>Capacidade de 400 ml, com tampa e acabamento fosco.</span>
+            <span class="preco">R$ 54,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Copo Modo Noturno')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="garrafas">
+          <div class="produto-foto">
+            <span class="selo presente">Presente especial</span>
+            <img src="img/garrafa/pocao.jpg" alt="Garrafa Poção Mágica">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Garrafas e copos</span>
+            <h3>Garrafa Poção Mágica</h3>
+            <p class="descricao">Garrafa em formato de poção, linda para decorar o setup.</p>
+            <span class="detalhes" hidden>Vidro azul decorativo, acompanha embalagem para presente.</span>
+            <span class="preco">R$ 79,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Garrafa Poção Mágica')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="garrafas">
+          <div class="produto-foto">
+            <img src="img/garrafa/squeeze.jpg" alt="Squeeze Roxo">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Garrafas e copos</span>
+            <h3>Squeeze Roxo</h3>
+            <p class="descricao">Squeeze grande, ideal para treinos, jogos e passeios.</p>
+            <span class="detalhes" hidden>Plástico livre de BPA, nome personalizado.</span>
+            <span class="preco">R$ 49,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Squeeze Roxo')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <!-- ===== CHAVEIROS E ACESSÓRIOS ===== -->
+        <article class="produto" data-categoria="chaveiros">
+          <div class="produto-foto">
+            <span class="selo presente">Presente especial</span>
+            <img src="img/acessorios/alien.jpg" alt="Chaveiro Alien">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Chaveiros e acessórios</span>
+            <h3>Chaveiro Alien</h3>
+            <p class="descricao">Alien em estilo caveira, para quem ama ficção científica.</p>
+            <span class="detalhes" hidden>Acabamento escuro com argola de metal.</span>
+            <span class="preco">Consulte o valor</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Chaveiro Alien')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="chaveiros">
+          <div class="produto-foto">
+            <span class="selo novidade">Novidade</span>
+            <img src="img/acessorios/chaveirocoracao.jpg" alt="Chaveiro Coração Pixel">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Chaveiros e acessórios</span>
+            <h3>Chaveiro Coração Pixel</h3>
+            <p class="descricao">Coração em pixel art com argola de metal.</p>
+            <span class="detalhes" hidden>Peça de cerca de 5 cm, uma lembrança para guardar.</span>
+            <span class="preco">R$ 14,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Chaveiro Coração Pixel')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="chaveiros">
+          <div class="produto-foto">
+            <span class="selo">Mais vendido</span>
+            <img src="img/acessorios/chaveirod20.jpg" alt="Chaveiro Dado D20">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Chaveiros e acessórios</span>
+            <h3>Chaveiro Dado D20</h3>
+            <p class="descricao">Para mestres e aventureiros de RPG.</p>
+            <span class="detalhes" hidden>Vários modelos de dados, com argola de metal.</span>
+            <span class="preco">R$ 16,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Chaveiro Dado D20')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="chaveiros">
+          <div class="produto-foto">
+            <img src="img/acessorios/estrela.jpg" alt="Chaveiro Estrela da Sorte">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Chaveiros e acessórios</span>
+            <h3>Chaveiro Estrela da Sorte</h3>
+            <p class="descricao">Estrelinha amarela e fofa para pendurar na mochila.</p>
+            <span class="detalhes" hidden>Peça macia de cerca de 6 cm, com argola.</span>
+            <span class="preco">R$ 12,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Chaveiro Estrela da Sorte')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="chaveiros">
+          <div class="produto-foto">
+            <img src="img/acessorios/rick.jpg" alt="Chaveiro Rick">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Chaveiros e acessórios</span>
+            <h3>Chaveiro Rick</h3>
+            <p class="descricao">Chaveiro com personagem em metal e cordão verde.</p>
+            <span class="detalhes" hidden>Metal com cordão colorido, ótimo para mochilas e chaves.</span>
+            <span class="preco">R$ 14,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Chaveiro Rick')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <!-- ===== QUADROS E DECORAÇÃO ===== -->
+        <article class="produto" data-categoria="quadros">
+          <div class="produto-foto">
+            <span class="selo novidade">Novidade</span>
+            <img src="img/quadros/linhadecodigo.jpg" alt="Quadro Linha de Código">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Quadros e decoração</span>
+            <h3>Quadro Linha de Código</h3>
+            <p class="descricao">Sua linha de código favorita em um quadro para o setup.</p>
+            <span class="detalhes" hidden>Tamanho 20x30 cm, frase ou código à sua escolha.</span>
+            <span class="preco">R$ 99,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Quadro Linha de Código')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="quadros">
+          <div class="produto-foto">
+            <img src="img/quadros/pixelart.jpg" alt="Quadro Pixel Art">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Quadros e decoração</span>
+            <h3>Quadro Pixel Art</h3>
+            <p class="descricao">Seu pet ou personagem favorito em pixel art.</p>
+            <span class="detalhes" hidden>Tamanho 20x30 cm, envie a foto ou a ideia.</span>
+            <span class="preco">R$ 89,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Quadro Pixel Art')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="quadros">
+          <div class="produto-foto">
+            <span class="selo presente">Presente especial</span>
+            <img src="img/quadros/quadrocasal.jpg" alt="Quadro Casal Gamer com Foto">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Quadros e decoração</span>
+            <h3>Quadro Casal Gamer com Foto</h3>
+            <p class="descricao">Quadro com a foto de vocês e uma frase especial.</p>
+            <span class="detalhes" hidden>Tamanho 30x40 cm, impressão fotográfica, envie sua foto.</span>
+            <span class="preco">Consulte o valor</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Quadro Casal Gamer com Foto')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="quadros">
+          <div class="produto-foto">
+            <span class="selo">Mais vendido</span>
+            <img src="img/quadros/quadrod20.jpg" alt="Quadro Dado D20">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Quadros e decoração</span>
+            <h3>Quadro Dado D20</h3>
+            <p class="descricao">Dado D20 em moldura, ideal para a sala de RPG.</p>
+            <span class="detalhes" hidden>Tamanho 20x30 cm, moldura de madeira.</span>
+            <span class="preco">R$ 89,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Quadro Dado D20')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <article class="produto" data-categoria="quadros">
+          <div class="produto-foto">
+            <span class="selo presente">Presente especial</span>
+            <img src="img/quadros/quadrogalaxia.jpg" alt="Quadro Galáxia">
+          </div>
+          <div class="produto-corpo">
+            <span class="categoria-etiqueta">Quadros e decoração</span>
+            <h3>Quadro Galáxia</h3>
+            <p class="descricao">Um pedaço do espaço para o seu quarto ou escritório.</p>
+            <span class="detalhes" hidden>Tamanho 20x30 cm, moldura de madeira escura.</span>
+            <span class="preco">R$ 94,90</span>
+            <div class="produto-botoes">
+              <button class="btn btn-contorno" onclick="abrirModal(this)">Ver detalhes</button>
+              <button class="btn btn-principal" onclick="pedirOrcamento('Quadro Galáxia')">Solicitar orçamento</button>
+            </div>
+          </div>
+        </article>
+        <!-- Mensagem que aparece quando a pesquisa não encontra nada -->
+        <p class="vazio" id="semResultado" hidden>😕 Nenhum produto encontrado. Tente outro nome ou veja todos os produtos.</p>
+      </div>
+      </div>
+    </section>
+
+    <!-- ================= PERSONALIZAÇÃO ================= -->
+    <section class="secao secao-escura" id="personalizar">
+      <div class="container">
+        <div class="titulo-secao revelar">
+          <h2>Personalize seu presente</h2>
+          <span class="detalhe"></span>
+          <p>Digite um nome ou frase e escolha a cor: a prévia muda na hora!</p>
+        </div>
+        <div class="personalizar-grade revelar">
+          <div class="personalizar-form">
+            <div class="campo">
+              <label for="textoPersonalizado">Texto da caneca</label>
+              <input type="text" id="textoPersonalizado" maxlength="30" placeholder="Ex.: Player 1 pronto!">
+            </div>
+            <div class="campo">
+              <label>Cor da caneca</label>
+              <div class="cores" id="coresCaneca">
+                <button type="button" style="background:#8b5cf6" data-cor="#8b5cf6" class="ativo" aria-label="Roxo neon"></button>
+                <button type="button" style="background:#0ea5b7" data-cor="#0ea5b7" aria-label="Ciano"></button>
+                <button type="button" style="background:#ec4899" data-cor="#ec4899" aria-label="Rosa neon"></button>
+                <button type="button" style="background:#10b981" data-cor="#10b981" aria-label="Verde neon"></button>
+                <button type="button" style="background:#374151" data-cor="#374151" aria-label="Grafite"></button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-whats" id="whatsPersonalizado">💬 Pedir esta caneca pelo WhatsApp</button>
+          </div>
+          <div class="previa">
+            <div class="previa-caneca">
+              <div class="previa-corpo" id="previaCorpo">
+                <span class="previa-texto" id="previaTexto">Seu texto aqui</span>
+              </div>
+              <div class="previa-alca" id="previaAlca"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SOBRE ================= -->
+    <section class="secao" id="sobre">
+      <div class="container sobre-grade">
+        <div class="sobre-imagens revelar">
+          <img src="img/caneca/canecapixel.jpg" alt="Caneca personalizada">
+          <img src="img/quadros/pixelart.jpg" alt="Quadro decorativo personalizado">
+          <img src="img/camiseta/gameover.jpg" alt="Camiseta personalizada">
+          <img src="img/garrafa/pocao.jpg" alt="Garrafa personalizada">
+        </div>
+        <div class="sobre-texto revelar">
+          <h2>Sobre a Cantelli Store</h2>
+          <p>Tudo começou em uma madrugada de maratona de jogos, quando uma caneca com o apelido de um amigo gamer virou o presente mais comentado da turma. Logo todo mundo queria a sua também. Assim nasceu a Cantelli Store (história fictícia criada para este projeto).</p>
+          <p>Nossa proposta é simples: produzir presentes exclusivos, que contam a história de quem dá e de quem recebe.</p>
+          <div class="diferenciais">
+            <div class="diferencial"><span class="emoji">🎨</span><strong>Criatividade</strong><span>Ideias só suas</span></div>
+            <div class="diferencial"><span class="emoji">🧡</span><strong>Qualidade</strong><span>Materiais selecionados</span></div>
+            <div class="diferencial"><span class="emoji">✍️</span><strong>Personalização</strong><span>Do seu jeitinho</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DEPOIMENTOS ================= -->
+    <section class="secao secao-escura" id="depoimentos">
+      <div class="container">
+        <div class="titulo-secao revelar">
+          <h2>Quem recebeu, amou</h2>
+          <span class="detalhe"></span>
+        </div>
+        <div class="depoimentos-grade revelar">
+          <article class="depoimento">
+            <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+            <p>“A caneca ficou exatamente como eu imaginei. Foi um presente especial!”</p>
+            <strong>Mariana Souza</strong>
+          </article>
+          <article class="depoimento">
+            <div class="estrelas" aria-label="5 de 5 estrelas">★★★★★</div>
+            <p>“As camisetas do nosso time de jogos ficaram incríveis e chegaram antes do combinado.”</p>
+            <strong>Carlos Almeida</strong>
+          </article>
+          <article class="depoimento">
+            <div class="estrelas" aria-label="4 de 5 estrelas">★★★★☆</div>
+            <p>“O quadro com a foto do casal virou a peça principal do nosso setup.”</p>
+            <strong>Fernanda Lima</strong>
+          </article>
+        </div>
+        <p class="aviso-ficticio">* Depoimentos fictícios, criados apenas como exemplo para este projeto escolar.</p>
+      </div>
+    </section>
+
+    <!-- ================= CONTATO (resumo) ================= -->
+    <section class="secao" id="contato">
+      <div class="container">
+        <div class="contato-resumo revelar">
+          <h2>Vamos criar o seu presente?</h2>
+          <p>Fale com a gente pelo WhatsApp ou envie uma mensagem pela nossa página de contato.</p>
+          <div class="banner-botoes" style="justify-content:center">
+            <a class="btn btn-whats" id="whatsContato" href="#" target="_blank" rel="noopener">💬 Chamar no WhatsApp</a>
+            <a class="btn btn-contorno" href="contato.html">✉️ Ir para a página de contato</a>
+          </div>
+          <div class="redes">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="https://www.pinterest.com/" target="_blank" rel="noopener" aria-label="Pinterest">P</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= RODAPÉ ================= -->
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape-grade">
+        <div>
+          <a href="#inicio" class="marca" data-alvo="inicio">
+            <img src="img/logo.png" alt="Logotipo Cantelli Store">
+            <span class="marca-nome">Cantelli<small>Store</small></span>
+          </a>
+          <p>Presentes personalizados feitos com carinho, para transformar momentos simples em lembranças especiais.</p>
+          <div class="redes">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="https://www.pinterest.com/" target="_blank" rel="noopener" aria-label="Pinterest">P</a>
+          </div>
+        </div>
+        <div>
+          <h4>Links rápidos</h4>
+          <ul>
+            <li><a href="#inicio" data-alvo="inicio">Início</a></li>
+            <li><a href="#produtos" data-alvo="produtos">Produtos</a></li>
+            <li><a href="#categorias" data-alvo="categorias">Categorias</a></li>
+            <li><a href="#sobre" data-alvo="sobre">Sobre Nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Categorias</h4>
+          <ul>
+            <li><a href="#produtos" onclick="escolherCategoria('canecas', true); return false;">Canecas personalizadas</a></li>
+            <li><a href="#produtos" onclick="escolherCategoria('camisetas', true); return false;">Camisetas</a></li>
+            <li><a href="#produtos" onclick="escolherCategoria('garrafas', true); return false;">Garrafas e copos</a></li>
+            <li><a href="#produtos" onclick="escolherCategoria('chaveiros', true); return false;">Chaveiros e acessórios</a></li>
+            <li><a href="#produtos" onclick="escolherCategoria('quadros', true); return false;">Quadros e decoração</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Atendimento</h4>
+          <ul>
+            <li>Seg a Sex, 9h às 18h</li>
+            <li>Sáb, 9h às 13h</li>
+            <li>contato@cantellistore.exemplo</li>
+            <li><a id="whatsRodape" href="#" target="_blank" rel="noopener">💬 WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="rodape-base">
+        <span>© 2026 Cantelli Store. Todos os direitos reservados. Loja fictícia para fins escolares.</span>
+        <button class="btn-topo" id="voltarTopo">↑ Voltar ao topo</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de detalhes do produto -->
+  <div class="modal-fundo" id="modalFundo" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal">
+      <button class="modal-fechar" id="modalFechar" aria-label="Fechar">×</button>
+      <img id="modalImagem" src="" alt="">
+      <div class="modal-info">
+        <span class="categoria-etiqueta" id="modalCategoria"></span>
+        <h3 id="modalTitulo"></h3>
+        <p id="modalDescricao"></p>
+        <p id="modalDetalhes"></p>
+        <span class="preco" id="modalPreco"></span>
+        <button class="btn btn-principal" id="modalOrcamento">Solicitar orçamento</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <a class="whats-flutuante" id="whatsFlutuante" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+<script>
+/* =========================================================
+   Cantelli Store — JavaScript da página inicial
+   Os produtos e as imagens estão escritos no HTML acima.
+   Aqui só ficam as ações: menu, filtro, pesquisa, janela
+   de detalhes, carrossel, prévia da caneca e WhatsApp.
+   ========================================================= */
+
+/* ---------- WhatsApp ---------- */
+
+// Número de demonstração (DDI + DDD + número, só dígitos). Troque pelo número real.
+const WHATSAPP_NUMERO = "5511999999999";
+
+// Monta o link do WhatsApp com uma mensagem já preparada
+function linkWhatsApp(mensagem) {
+  return "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(mensagem);
+}
+
+/* ---------- Variáveis da página ---------- */
+
+let categoriaAtual = "todos";   // categoria escolhida no filtro
+let textoBusca = "";            // o que foi digitado na pesquisa
+let nomeDoProdutoAberto = "";   // produto aberto na janela de detalhes
+let slideAtual = 0;             // posição do carrossel
+let autoplay;                   // troca automática do carrossel
+let temporizadorMensagem;       // some com a mensagem rápida
+
+/* ---------- Funções de apoio ---------- */
+
+// Mensagem rápida que aparece na parte de baixo da tela
+function mostrarMensagem(texto) {
+  const caixa = document.getElementById("toast");
+  caixa.textContent = texto;
+  caixa.classList.add("visivel");
+  clearTimeout(temporizadorMensagem);
+  temporizadorMensagem = setTimeout(() => caixa.classList.remove("visivel"), 3200);
+}
+
+// Rola suavemente até uma seção (pelo id)
+function irPara(id) {
+  document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+}
+
+/* =========================================================
+   MENU E BOTÕES GERAIS
+   ========================================================= */
+
+const menu = document.getElementById("menu");
+const botaoMenu = document.getElementById("hamburguer");
+
+// Todo link ou botão com data-alvo rola até a seção indicada
+document.querySelectorAll("[data-alvo]").forEach((elemento) => {
+  elemento.addEventListener("click", (e) => {
+    e.preventDefault();
+    irPara(elemento.dataset.alvo);
+    menu.classList.remove("aberto");   // fecha o menu no celular
+    botaoMenu.textContent = "☰";
+  });
+});
+
+// Menu do celular: abre e fecha
+botaoMenu.addEventListener("click", () => {
+  const aberto = menu.classList.toggle("aberto");
+  botaoMenu.textContent = aberto ? "✕" : "☰";
+  botaoMenu.setAttribute("aria-expanded", aberto);
+});
+
+// Links do WhatsApp (todos com a mesma mensagem)
+const mensagemPadrao = "Olá! Vim pelo site da Cantelli Store e gostaria de mais informações.";
+["whatsTopo", "whatsContato", "whatsRodape", "whatsFlutuante"].forEach((id) => {
+  document.getElementById(id).href = linkWhatsApp(mensagemPadrao);
+});
+
+// Sombra no cabeçalho quando a página rola
+window.addEventListener("scroll", () => {
+  document.getElementById("cabecalho").classList.toggle("rolou", window.scrollY > 10);
+});
+
+// Botão "Voltar ao topo"
+document.getElementById("voltarTopo").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Animação suave: as seções aparecem quando entram na tela
+const observador = new IntersectionObserver((itens) => {
+  itens.forEach((item) => {
+    if (item.isIntersecting) item.target.classList.add("visivel");
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll(".revelar").forEach((el) => observador.observe(el));
+
+/* =========================================================
+   CATEGORIAS, FILTRO E PESQUISA
+   ========================================================= */
+
+const campoPesquisa = document.getElementById("campoPesquisa");
+
+// Mostra só os produtos que combinam com a categoria e com a pesquisa
+function atualizarVitrine() {
+  let encontrados = 0;
+
+  document.querySelectorAll(".produto").forEach((produto) => {
+    const categoria = produto.dataset.categoria;                                   // ex.: "canecas"
+    const nome = produto.querySelector("h3").textContent.toLowerCase();            // nome do produto
+    const daCategoria = categoriaAtual === "todos" || categoria === categoriaAtual;
+    const combinaNome = nome.includes(textoBusca.toLowerCase());
+
+    if (daCategoria && combinaNome) {
+      produto.style.display = "";        // mostra
+      encontrados++;
+    } else {
+      produto.style.display = "none";    // esconde
+    }
+  });
+
+  document.getElementById("contador").textContent =
+    encontrados === 1 ? "1 produto encontrado" : encontrados + " produtos encontrados";
+  document.getElementById("semResultado").hidden = encontrados > 0;
+}
+
+// Destaca o botão e o cartão da categoria que está escolhida
+function marcarCategoriaAtiva() {
+  document.querySelectorAll(".filtros button").forEach((botao) => {
+    botao.classList.toggle("ativo", botao.dataset.filtro === categoriaAtual);
+  });
+  document.querySelectorAll(".categoria-cartao").forEach((cartao) => {
+    cartao.classList.toggle("ativa", cartao.dataset.filtro === categoriaAtual);
+  });
+}
+
+// Chamada pelos botões do HTML. Se "rolar" for true, leva até a vitrine.
+function escolherCategoria(id, rolar) {
+  categoriaAtual = id;
+  marcarCategoriaAtiva();
+  atualizarVitrine();
+  if (rolar) irPara("produtos");
+}
+
+// A pesquisa filtra enquanto o visitante digita
+campoPesquisa.addEventListener("input", () => {
+  textoBusca = campoPesquisa.value;
+  atualizarVitrine();
+});
+document.getElementById("formPesquisa").addEventListener("submit", (e) => {
+  e.preventDefault();
+  irPara("produtos");
+});
+
+// Se veio da página de contato com uma busca (index.html?busca=caneca)
+const buscaDaUrl = new URLSearchParams(window.location.search).get("busca");
+if (buscaDaUrl) {
+  textoBusca = buscaDaUrl;
+  campoPesquisa.value = buscaDaUrl;
+  atualizarVitrine();
+}
+
+/* =========================================================
+   JANELA DE DETALHES (MODAL) E ORÇAMENTO
+   ========================================================= */
+
+const modalFundo = document.getElementById("modalFundo");
+
+// "botao" é o botão "Ver detalhes" que foi clicado
+function abrirModal(botao) {
+  const produto = botao.closest(".produto");   // o cartão onde o botão está
+
+  nomeDoProdutoAberto = produto.querySelector("h3").textContent;
+  document.getElementById("modalImagem").src = produto.querySelector("img").src;
+  document.getElementById("modalImagem").alt = nomeDoProdutoAberto;
+  document.getElementById("modalCategoria").textContent = produto.querySelector(".categoria-etiqueta").textContent;
+  document.getElementById("modalTitulo").textContent = nomeDoProdutoAberto;
+  document.getElementById("modalDescricao").textContent = produto.querySelector(".descricao").textContent;
+  document.getElementById("modalDetalhes").textContent = produto.querySelector(".detalhes").textContent;
+  document.getElementById("modalPreco").textContent = produto.querySelector(".preco").textContent;
+
+  modalFundo.classList.add("aberto");
+  document.body.style.overflow = "hidden";   // trava a rolagem da página
+}
+
+function fecharModal() {
+  modalFundo.classList.remove("aberto");
+  document.body.style.overflow = "";
+}
+
+// Mostra uma mensagem ao selecionar um produto para orçamento
+function pedirOrcamento(nome) {
+  mostrarMensagem("✅ “" + nome + "” selecionado! Para pedir o orçamento, chame no WhatsApp ou use a página de contato.");
+}
+
+document.getElementById("modalFechar").addEventListener("click", fecharModal);
+modalFundo.addEventListener("click", (e) => {
+  if (e.target === modalFundo) fecharModal();   // clique fora da janela
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") fecharModal();
+});
+document.getElementById("modalOrcamento").addEventListener("click", () => {
+  pedirOrcamento(nomeDoProdutoAberto);
+  fecharModal();
+});
+
+/* =========================================================
+   CARROSSEL DE DESTAQUES
+   ========================================================= */
+
+const trilho = document.getElementById("carrosselTrilho");
+const carrossel = document.getElementById("carrossel");
+const totalSlides = document.querySelectorAll(".slide").length;
+
+// Mostra o slide número "n" (depois do último volta para o primeiro)
+function irParaSlide(n) {
+  slideAtual = (n + totalSlides) % totalSlides;
+  trilho.style.transform = "translateX(-" + slideAtual * 100 + "%)";
+
+  document.querySelectorAll("#indicadores button").forEach((bolinha, i) => {
+    bolinha.classList.toggle("ativo", i === slideAtual);
+  });
+  iniciarAutoplay();   // recomeça a contagem da troca automática
+}
+
+// Troca automática a cada 5 segundos
+function iniciarAutoplay() {
+  clearInterval(autoplay);
+  autoplay = setInterval(() => irParaSlide(slideAtual + 1), 5000);
+}
+
+document.getElementById("slideProximo").addEventListener("click", () => irParaSlide(slideAtual + 1));
+document.getElementById("slideAnterior").addEventListener("click", () => irParaSlide(slideAtual - 1));
+carrossel.addEventListener("mouseenter", () => clearInterval(autoplay));   // pausa com o mouse em cima
+carrossel.addEventListener("mouseleave", iniciarAutoplay);
+
+// Deslizar com o dedo no celular
+let toqueInicial = 0;
+carrossel.addEventListener("touchstart", (e) => { toqueInicial = e.touches[0].clientX; }, { passive: true });
+carrossel.addEventListener("touchend", (e) => {
+  const diferenca = e.changedTouches[0].clientX - toqueInicial;
+  if (diferenca < -50) irParaSlide(slideAtual + 1);
+  if (diferenca > 50) irParaSlide(slideAtual - 1);
+});
+
+/* =========================================================
+   PERSONALIZAÇÃO: a prévia muda enquanto o visitante digita
+   ========================================================= */
+
+const campoTexto = document.getElementById("textoPersonalizado");
+const previaTexto = document.getElementById("previaTexto");
+const previaCorpo = document.getElementById("previaCorpo");
+const previaAlca = document.getElementById("previaAlca");
+const botoesCor = document.querySelectorAll("#coresCaneca button");
+let nomeCor = "Roxo neon";
+
+campoTexto.addEventListener("input", () => {
+  previaTexto.textContent = campoTexto.value.trim() || "Seu texto aqui";
+});
+
+botoesCor.forEach((botao) => {
+  botao.addEventListener("click", () => {
+    botoesCor.forEach((b) => b.classList.remove("ativo"));
+    botao.classList.add("ativo");
+    previaCorpo.style.background = botao.dataset.cor;
+    previaAlca.style.borderColor = botao.dataset.cor;
+    nomeCor = botao.getAttribute("aria-label");
+  });
+});
+
+// Abre o WhatsApp com a mensagem já preparada
+document.getElementById("whatsPersonalizado").addEventListener("click", () => {
+  const texto = campoTexto.value.trim();
+  if (texto === "") {
+    mostrarMensagem("✍️ Digite o texto da caneca antes de pedir.");
+    campoTexto.focus();
+    return;
+  }
+  const mensagem = "Olá! Gostaria de uma caneca personalizada na cor " + nomeCor + " com o texto: “" + texto + "”.";
+  window.open(linkWhatsApp(mensagem), "_blank", "noopener");
+});
+
+/* ---------- Ao abrir a página ---------- */
+irParaSlide(0);
+</script>
+</body>
+</html>
